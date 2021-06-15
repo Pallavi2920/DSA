@@ -8,45 +8,45 @@ int pre(char c)
     else return -1;
 }
 
-string infixTopostfix(string str)
+string infixTopostfix(string s)
 {
-    stack<char>s;
+    stack<char>st;
     string post;
-    for(int i=0;i<str.length();i++)
+    for(int i=0;i<s.length();i++)
     {
-        if((str[i]>='a' && str[i]<='z') || (str[i]>='A' && str[i]<='Z') || (str[i]>='0' && str[i]<='9') )
+        if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z') || (s[i]>='0' && s[i]<='9') )
         {
-            post += str[i];
+            post += s[i];
         }
-        else if(str[i]=='(')
+        else if(s[i]=='(')
         {
-            s.push('(');
+            st.push('(');
         }
-        else if(str[i]==')')
+        else if(s[i]==')')
         {
-            while((!s.empty() && s.top()!='('))
+            while((!st.empty() && st.top()!='('))
             {
-                char ch = s.top();
-                s.pop();
+                char ch = st.top();
+                st.pop();
                 post += ch;
             }
-            s.pop();
+            st.pop();
         }
         else
         {
-            while(!s.empty() && pre(str[i])<pre(s.top()))
+            while(!st.empty() && pre(s[i])<pre(st.top()))
             {
-                char temp = s.top();
-                s.pop();
+                char temp = st.top();
+                st.pop();
                 post += temp;
             }
-            s.push(str[i]);
+            st.push(s[i]);
         }
     }
     while(!s.empty())
     {
-        char temp = s.top();
-        s.pop();
+        char temp = st.top();
+        st.pop();
         post += temp;
     }
     return post;
