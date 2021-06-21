@@ -17,27 +17,52 @@
 //     2 4 3
 #include<bits/stdc++.h>
 using namespace std;
-void heapifyUp(int heap[],int i,int ele)
+int size =0;
+int parent(int i)
+{
+    int p = i/2;
+    return p;
+}
+void heapifyUp(int heap[], int ele, int i)
 {
     heap[i] = ele;
-    while(i!=1 && heap[i]<heap[i/2])
+    while(i!=1 && heap[i]<heap[parent(i)])
     {
-        swap(heap[i],heap[i/2]);
-        i = i/2;
+        swap(heap[parent(i)],heap[i]);
+        i = parent(i);
     }
 }
-void decreaseKey(int heap[],int k)
+void heapifyDown(int heap[], int n, int i)
 {
-        heap[k] = heap[n]
-        heapifyUp(heap,k,heap[k]);
+    int l = 2*i;
+    int r = 2*i+1;
+    int s = i;
+    if(l<=n && heap[l]<heap[i])  s=l;
+    if(r<=n && heap[r]<heap[s])  s=r;
+    if(s!=i)
+    {
+        swap(heap[i],heap[s]);
+        heapifyDown(heap,n,s);
+    }
 }
-void printHeap(int heap[],int n)
+
+void replace(int heap[], int n, int k)
 {
-    for(int i = 1; i<=n;i++)
+    heapifyUp(heap,-1,k);
+}
+void remove(int heap[])
+{
+    heap[1] = heap[size];
+    size--;
+    heapifyDown(heap,size,1);
+}
+void printHeap(int heap[])
+{
+    for(int i=1;i<=size;i++)
     {
         cout<<heap[i]<<" ";
     }
-    cout<<endl;
+    cout<<"\n";
 }
 int main()
 {
@@ -47,14 +72,16 @@ int main()
     {
         int n,k;
         cin>>n>>k;
-        int heap[n];
-        int ele;
+        int heap[n],ele;
+        size =0 ;
         for(int i = 1; i<=n;i++)
         {
+            size++;
             cin>>ele;
             heapifyUp(heap,ele,i);
         }
-        decreaseKey(heap,k);
-        printHeap(heap,k);
+        replace(heap,n,k);
+        remove(heap);
+        printHeap(heap);
     }
 }
