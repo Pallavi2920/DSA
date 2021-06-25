@@ -16,14 +16,14 @@ void kClosest(int heap[], int k, int n,int x)
         }
         while(max.size()!=0)
         {
-            ans.push_back(max.top().second);
+            cout<<max.top().second<<" ";
             max.pop();
         }
-        reverse(ans.begin(),ans.end());
-        for(int i=0;i<ans.size();i++)
-        {
-            cout<<ans[i]<<" ";
-        }
+        // reverse(ans.begin(),ans.end());
+        // for(int i=0;i<ans.size();i++)
+        // {
+        //     cout<<ans[i]<<" ";
+        // }
         cout<<'\n';
 }
 
@@ -35,7 +35,7 @@ int main()
     while(t--)
     {
         int n,k,x;
-        cin>>n>>k>>x;
+        cin>>n>>x>>k;
         int heap[n];
         for(int i=0;i<n;i++)
         {
